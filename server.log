@@ -1,0 +1,172 @@
+INFO:     Started server process [1685]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+Connected to MongoDB: gym_db
+Indexes created.
+🔹 LOGIN ATTEMPT: username=admin_rafael@test.com
+INFO:     127.0.0.1:49680 - "POST /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49681 - "GET /auth/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50876 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50878 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:50879 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50903 - "POST /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:50904 - "POST /activities/ HTTP/1.1" 401 Unauthorized
+🔹 LOGIN ATTEMPT: username=admin_rafael@test.com
+INFO:     127.0.0.1:50935 - "POST /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50937 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50939 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:50940 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50947 - "POST /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:50948 - "POST /activities/ HTTP/1.1" 401 Unauthorized
+🔹 LOGIN ATTEMPT: username=admin_rafael@test.com
+INFO:     127.0.0.1:51032 - "POST /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51034 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51036 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51037 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51062 - "POST /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51063 - "POST /activities/ HTTP/1.1" 401 Unauthorized
+🔹 LOGIN ATTEMPT: username=admin_rafael@test.com
+INFO:     127.0.0.1:51162 - "POST /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51164 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51166 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51167 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51190 - "POST /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51191 - "POST /activities/ HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51263 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51264 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51265 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51302 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51303 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51304 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51314 - "POST /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51315 - "POST /activities/ HTTP/1.1" 401 Unauthorized
+🔹 LOGIN ATTEMPT: username=admin_rafael@test.com
+INFO:     127.0.0.1:51378 - "POST /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51380 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51382 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51383 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51390 - "POST /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51391 - "POST /activities/ HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51435 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51435 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51435 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51493 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51493 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51493 - "GET /activities/ HTTP/1.1" 200 OK
+🔹 LOGIN ATTEMPT: username=admin_rafael@test.com
+INFO:     127.0.0.1:51585 - "POST /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51585 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51585 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51585 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51589 - "POST /activities/ HTTP/1.1" 201 Created
+INFO:     127.0.0.1:51589 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51589 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51595 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51595 - "GET /auth/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51652 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51652 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51652 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51889 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51889 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51889 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51908 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51908 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51908 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52001 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52001 - "GET /auth/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52003 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52003 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52003 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52045 - "OPTIONS /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52046 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52046 - "OPTIONS /activities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52045 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52045 - "OPTIONS /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52046 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52088 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52088 - "GET /auth/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52088 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52088 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52088 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52088 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52088 - "GET /auth/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52088 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52088 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52088 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52088 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52088 - "GET /auth/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52088 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52088 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52088 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52117 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52117 - "GET /auth/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52117 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52117 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52117 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52169 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52169 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:52169 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52645 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52645 - "GET /auth/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53790 - "POST /auth/register HTTP/1.1" 200 OK
+🔹 LOGIN ATTEMPT: username=maxi@prueba.com
+INFO:     127.0.0.1:53790 - "POST /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53790 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53790 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53790 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:53792 - "GET /reservations/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53790 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53798 - "POST /reservations/ HTTP/1.1" 201 Created
+INFO:     127.0.0.1:53798 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:53798 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53800 - "GET /reservations/me HTTP/1.1" 200 OK
+🔹 LOGIN ATTEMPT: username=maxi@prueba.com
+INFO:     127.0.0.1:64162 - "POST /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64162 - "OPTIONS /activities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64162 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:64162 - "OPTIONS /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64168 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64203 - "OPTIONS /reservations/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64203 - "GET /reservations/me HTTP/1.1" 200 OK
+🔹 LOGIN ATTEMPT: username=admin_rafael@test.com
+INFO:     127.0.0.1:50826 - "POST /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50826 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50826 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50826 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:50826 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50972 - "POST /activities/ HTTP/1.1" 201 Created
+INFO:     127.0.0.1:50972 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:50972 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51025 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51025 - "GET /auth/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51025 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51025 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51025 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51025 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51025 - "GET /auth/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51025 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51025 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51025 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51121 - "DELETE /activities/69922e28e6ae98dde9fe44b8 HTTP/1.1" 204 No Content
+🔹 LOGIN ATTEMPT: username=maxi@prueba.com
+INFO:     127.0.0.1:51189 - "POST /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51189 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51189 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51189 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51190 - "GET /reservations/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51189 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51239 - "POST /reservations/ HTTP/1.1" 201 Created
+INFO:     127.0.0.1:51239 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51239 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51250 - "GET /reservations/me HTTP/1.1" 200 OK
+🔹 LOGIN ATTEMPT: username=maxi@prueba.com
+INFO:     127.0.0.1:51338 - "POST /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51338 - "OPTIONS /activities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51338 - "GET /activities HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:51338 - "OPTIONS /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51344 - "GET /activities/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51344 - "OPTIONS /reservations/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51338 - "GET /reservations/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51829 - "OPTIONS /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51829 - "GET /auth/me HTTP/1.1" 200 OK

@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# JavaScript/Node
+node_modules/
+dist/
+.DS_Store
+
+# Flutter
+.dart_tool/
+.idea/
+build/
+ios/Flutter/Generated.xcconfig
+android/local.properties
