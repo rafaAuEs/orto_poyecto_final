@@ -14,7 +14,72 @@ Gym Manager permite a los administradores gestionar el calendario de clases, con
 
 ---
 
-## 3. Modelado de Datos con Pydantic
+## 3. Diagramas de Flujo de Uso
+
+### A. Aplicación Móvil (Flujo del Cliente)
+Este diagrama describe la experiencia del usuario desde el registro hasta la gestión de reservas, incluyendo la lógica de cancelación.
+
+```mermaid
+flowchart TD
+    Start((Inicio)) --> Login{¿Tiene Cuenta?}
+    Login -- No --> Register[Registro con Bcrypt]
+    Login -- Sí --> Auth[Autenticación JWT]
+    
+    Register --> Auth
+    Auth --> Home[Dashboard: Actividades Disponibles]
+    
+    Home --> ViewDetails[Ver Detalles de Actividad]
+    ViewDetails --> Book{¿Reservar?}
+    
+    Book -- Sí --> CheckCap{¿Hay Aforo?}
+    CheckCap -- No --> Error[Notificación: Clase Llena]
+    CheckCap -- Sí --> Confirm[Reserva Confirmada]
+    
+    Home --> MyBookings[Mis Reservas]
+    MyBookings --> Cancel{¿Cancelar?}
+    
+    Cancel -- Sí --> Rule15{¿Faltan > 15 min?}
+    Rule15 -- Sí --> Refund[Estado: Cancelado / Plaza Liberada]
+    Rule15 -- No --> Penalty[Estado: Late Cancelled / Penalización]
+    
+    Refund --> MyBookings
+    Penalty --> MyBookings
+    Error --> Home
+```
+
+### B. Aplicación de Escritorio (Flujo del Administrador)
+Describe las tareas de gestión de clases y control de asistencia que realiza el personal del gimnasio.
+
+```mermaid
+flowchart TD
+    Start((Inicio Admin)) --> LoginAdmin[Login Credenciales Admin]
+    LoginAdmin --> Dashboard[Panel de Control General]
+    
+    Dashboard --> ManageAct[Gestión de Actividades]
+    ManageAct --> CreateAct[Crear Nueva Clase]
+    CreateAct --> ValData{Validar Datos}
+    ValData -- Error --> FixData[Corregir Fechas/Aforo]
+    ValData -- OK --> SaveDB[(Guardar en MongoDB)]
+    
+    Dashboard --> Attendance[Control de Asistencia]
+    Attendance --> SelectClass[Seleccionar Clase del día]
+    SelectClass --> ListUsers[Listado de Clientes Reservados]
+    
+    ListUsers --> Mark[Marcar Asistencia]
+    Mark --> Status{Estado}
+    Status --> Attended[Asistió]
+    Status --> Absent[No Asistió]
+    
+    Attended --> Sync[(Sincronizar DB)]
+    Absent --> Sync
+    
+    Dashboard --> UserMod[Gestión de Usuarios]
+    UserMod --> Search[Búsqueda / Reportes]
+```
+
+---
+
+## 4. Modelado de Datos con Pydantic
 Se ha utilizado **Pydantic** para garantizar la integridad de los datos en toda la aplicación.
 
 - **Validación Estricta:** Los modelos aseguran que las fechas de fin sean posteriores a las de inicio, los emails sean válidos y los aforos sean números positivos.
@@ -72,7 +137,7 @@ python3 -m venv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
 # Configura tu .env con la MONGODB_URL
-uvicorn backend.main:app --reload --port 8000
+uvicorn main:app --reload --port 8000
 ```
 
 ### 2. App Escritorio (Admin)
