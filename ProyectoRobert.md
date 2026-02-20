@@ -4,9 +4,9 @@ Este documento explica en profundidad el funcionamiento técnico del backend, ce
 
 ---
 
-## 1. Seguridad: El Corazón del Sistema (`core/security.py`)
+## 1. Seguridad: El Corazón del Sistema (`backend/core/security.py`)
 
-La seguridad no es opcional. Hemos implementado un sistema robusto basado en **Bcrypt** para proteger las credenciales de los usuarios.
+Hemos implementado un sistema robusto basado en **Bcrypt** para proteger las credenciales de los usuarios.
 
 ###  ¿Qué es Bcrypt y por qué lo usamos?
 Bcrypt es un algoritmo de **hashing** (no encriptación, ya que el proceso es unidireccional). A diferencia de SHA-256 o MD5, Bcrypt está diseñado para ser "lento". 
