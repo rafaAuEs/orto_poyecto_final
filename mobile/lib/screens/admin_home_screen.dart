@@ -5,6 +5,9 @@ import '../services/api_service.dart';
 import '../providers/auth_provider.dart';
 import 'attendance_screen.dart';
 
+import 'activity_form_screen.dart';
+import 'users_screen.dart';
+
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({super.key});
 
@@ -35,14 +38,42 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     }
   }
 
+  Future<void> _deleteActivity(String id, String title) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Eliminar Clase'),
+        content: Text('¿Seguro que deseas eliminar "$title"?'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancelar')),
+          TextButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Eliminar', style: TextStyle(color: Colors.red))),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      try {
+        await _api.deleteActivity(id);
+        _loadData();
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Admin: Control de Clases'),
+        title: const Text('Gym Manager Admin'),
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.people),
+            tooltip: 'Usuarios',
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const UsersScreen())),
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () => Provider.of<AuthProvider>(context, listen: false).logout(),
@@ -57,18 +88,37 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               itemCount: _activities.length,
               itemBuilder: (context, index) {
                 final act = _activities[index];
-                final start = DateTime.parse(act['start_time']);
+                final start = DateTime.parse(act['start_time']).toLocal();
 
                 return Card(
                   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: Colors.indigo.shade100,
-                      child: const Icon(Icons.list_alt, color: Colors.indigo),
+                      child: const Icon(Icons.fitness_center, color: Colors.indigo),
                     ),
-                    title: Text(act['title']),
-                    subtitle: Text('${DateFormat('EEE d MMM HH:mm').format(start)}\n${act['booked_count']} inscritos'),
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    title: Text(act['title'], style: const TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text('${DateFormat('EEE d MMM, HH:mm').format(start)}\n${act['booked_count']}/${act['capacity']} inscritos'),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.blue),
+                          onPressed: () async {
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => ActivityFormScreen(activity: act))
+                            );
+                            if (result == true) _loadData();
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete_outline, color: Colors.red),
+                          onPressed: () => _deleteActivity(act['_id'], act['title']),
+                        ),
+                        const Icon(Icons.arrow_forward_ios, size: 16),
+                      ],
+                    ),
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -80,6 +130,18 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               },
             ),
           ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ActivityFormScreen())
+          );
+          if (result == true) _loadData();
+        },
+        backgroundColor: Colors.indigo,
+        foregroundColor: Colors.white,
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

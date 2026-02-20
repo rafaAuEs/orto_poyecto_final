@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: _activities.length,
               itemBuilder: (context, index) {
                 final act = _activities[index];
-                final start = DateTime.parse(act['start_time']);
+                final start = DateTime.parse(act['start_time']).toLocal();
                 final full = act['booked_count'] >= act['capacity'];
 
                 return Card(

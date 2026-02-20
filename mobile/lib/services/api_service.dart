@@ -173,4 +173,65 @@ class ApiService {
       throw Exception('Error al actualizar asistencia');
     }
   }
+
+  // Activity Management
+  Future<void> createActivity(Map<String, dynamic> activityData) async {
+    final response = await http.post(
+      Uri.parse('${Config.baseUrl}/activities/'),
+      headers: await _getHeaders(),
+      body: jsonEncode(activityData),
+    );
+
+    if (response.statusCode != 201) {
+      throw Exception('Error al crear actividad: ${response.body}');
+    }
+  }
+
+  Future<void> updateActivity(String id, Map<String, dynamic> activityData) async {
+    final response = await http.put(
+      Uri.parse('${Config.baseUrl}/activities/$id'),
+      headers: await _getHeaders(),
+      body: jsonEncode(activityData),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Error al actualizar actividad: ${response.body}');
+    }
+  }
+
+  Future<void> deleteActivity(String id) async {
+    final response = await http.delete(
+      Uri.parse('${Config.baseUrl}/activities/$id'),
+      headers: await _getHeaders(),
+    );
+
+    if (response.statusCode != 204) {
+      throw Exception('Error al eliminar actividad');
+    }
+  }
+
+  // User Management
+  Future<List<dynamic>> getUsers() async {
+    final response = await http.get(
+      Uri.parse('${Config.baseUrl}/auth/users'),
+      headers: await _getHeaders(),
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Error al cargar usuarios');
+    }
+  }
+
+  Future<void> deleteUser(String id) async {
+    final response = await http.delete(
+      Uri.parse('${Config.baseUrl}/auth/users/$id'),
+      headers: await _getHeaders(),
+    );
+
+    if (response.statusCode != 204) {
+      throw Exception('Error al eliminar usuario');
+    }
+  }
 }

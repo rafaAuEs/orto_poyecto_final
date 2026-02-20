@@ -55,7 +55,7 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
               itemBuilder: (context, index) {
                 final res = _reservations[index];
                 final start = res['activity_start_time'] != null 
-                  ? DateTime.parse(res['activity_start_time']) 
+                  ? DateTime.parse(res['activity_start_time']).toLocal() 
                   : DateTime.now();
                 final status = res['status'];
 
