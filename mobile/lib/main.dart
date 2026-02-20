@@ -5,7 +5,11 @@ import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/admin_home_screen.dart';
 
-void main() {
+import 'package:intl/date_symbol_data_local.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('es-ES', null);
   runApp(const MyApp());
 }
 

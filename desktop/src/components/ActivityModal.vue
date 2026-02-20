@@ -14,14 +14,30 @@ const emit = defineEmits(['close', 'saved'])
 // Inicializar estado con props si es edición
 const isEdit = computed(() => !!props.activity)
 
+// Auxiliar para formatear fecha UTC de la DB a local para el input datetime-local
+const formatToLocalInput = (isoString) => {
+  if (!isoString) return ''
+  const date = new Date(isoString)
+  if (isNaN(date.getTime())) return ''
+  
+  const pad = (n) => String(n).padStart(2, '0')
+  const y = date.getFullYear()
+  const m = pad(date.getMonth() + 1)
+  const d = pad(date.getDate())
+  const h = pad(date.getHours())
+  const min = pad(date.getMinutes())
+  
+  return `${y}-${m}-${d}T${h}:${min}`
+}
+
 // Formulario reactivo
 const form = ref({
   title: props.activity?.title || '',
   instructor: props.activity?.instructor || '',
   location: props.activity?.location || 'Sala Principal',
   capacity: props.activity?.capacity || 20,
-  start_time: props.activity?.start_time ? props.activity.start_time.slice(0, 16) : '', // formato datetime-local
-  end_time: props.activity?.end_time ? props.activity.end_time.slice(0, 16) : ''
+  start_time: formatToLocalInput(props.activity?.start_time),
+  end_time: formatToLocalInput(props.activity?.end_time)
 })
 
 const loading = ref(false)

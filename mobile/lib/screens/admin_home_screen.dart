@@ -63,14 +63,20 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Basic stats calculation
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    final classesToday = _activities.where((a) => a['start_time'].startsWith(today)).length;
+    final totalBookings = _activities.fold<int>(0, (sum, a) => sum + (a['booked_count'] as int));
+
     return Scaffold(
+      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
-        title: const Text('Gym Manager Admin'),
-        backgroundColor: Colors.indigo,
+        title: const Text('Administración', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.indigo.shade800,
         foregroundColor: Colors.white,
         actions: [
           IconButton(
-            icon: const Icon(Icons.people),
+            icon: const Icon(Icons.people_alt),
             tooltip: 'Usuarios',
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const UsersScreen())),
           ),
@@ -84,53 +90,84 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         ? const Center(child: CircularProgressIndicator()) 
         : RefreshIndicator(
             onRefresh: _loadData,
-            child: ListView.builder(
-              itemCount: _activities.length,
-              itemBuilder: (context, index) {
-                final act = _activities[index];
-                final start = DateTime.parse(act['start_time']).toLocal();
-
-                return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.indigo.shade100,
-                      child: const Icon(Icons.fitness_center, color: Colors.indigo),
-                    ),
-                    title: Text(act['title'], style: const TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: Text('${DateFormat('EEE d MMM, HH:mm').format(start)}\n${act['booked_count']}/${act['capacity']} inscritos'),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.blue),
-                          onPressed: () async {
-                            final result = await Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => ActivityFormScreen(activity: act))
-                            );
-                            if (result == true) _loadData();
-                          },
+                        const Text('Resumen del Centro', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            _buildStatCard('Clases Hoy', classesToday.toString(), Icons.calendar_today, Colors.blue),
+                            const SizedBox(width: 16),
+                            _buildStatCard('Reservas Total', totalBookings.toString(), Icons.group, Colors.green),
+                          ],
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.delete_outline, color: Colors.red),
-                          onPressed: () => _deleteActivity(act['_id'], act['title']),
-                        ),
-                        const Icon(Icons.arrow_forward_ios, size: 16),
+                        const SizedBox(height: 24),
+                        const Text('Próximas Actividades', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                       ],
                     ),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => AttendanceScreen(activity: act)
-                      )
-                    ),
                   ),
-                );
-              },
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final act = _activities[index];
+                      final start = DateTime.parse(act['start_time']).toLocal();
+
+                      return Card(
+                        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.indigo.shade50,
+                            child: const Icon(Icons.fitness_center, color: Colors.indigo),
+                          ),
+                          title: Text(act['title'], style: const TextStyle(fontWeight: FontWeight.bold)),
+                          subtitle: Text('${DateFormat('EEE d MMM, HH:mm').format(start)}\n${act['booked_count']}/${act['capacity']} inscritos'),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.edit_note, color: Colors.blue),
+                                onPressed: () async {
+                                  final result = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (_) => ActivityFormScreen(activity: act))
+                                  );
+                                  if (result == true) _loadData();
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete_sweep, color: Colors.red),
+                                onPressed: () => _deleteActivity(act['_id'], act['title']),
+                              ),
+                            ],
+                          ),
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => AttendanceScreen(activity: act)
+                            )
+                          ),
+                        ),
+                      );
+                    },
+                    childCount: _activities.length,
+                  ),
+                ),
+                const SliverPadding(
+                  padding: EdgeInsets.only(bottom: 80),
+                ),
+              ],
             ),
           ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           final result = await Navigator.push(
             context,
@@ -138,9 +175,32 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           );
           if (result == true) _loadData();
         },
-        backgroundColor: Colors.indigo,
+        backgroundColor: Colors.indigo.shade800,
         foregroundColor: Colors.white,
-        child: const Icon(Icons.add),
+        icon: const Icon(Icons.add),
+        label: const Text('NUEVA CLASE'),
+      ),
+    );
+  }
+
+  Widget _buildStatCard(String title, String value, IconData icon, Color color) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(icon, color: color, size: 28),
+            const SizedBox(height: 12),
+            Text(value, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(title, style: TextStyle(color: Colors.grey.shade600, fontSize: 13)),
+          ],
+        ),
       ),
     );
   }

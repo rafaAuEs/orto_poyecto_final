@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, field_validator
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 
 class ActivityBase(BaseModel):
@@ -32,8 +32,10 @@ class ActivityUpdate(BaseModel):
 class ActivityInDB(ActivityBase):
     id: str = Field(alias="_id")
     booked_count: int = 0
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     class Config:
         populate_by_name = True
-        json_encoders = {datetime: lambda v: v.isoformat()}
+        json_encoders = {
+            datetime: lambda v: v.replace(tzinfo=timezone.utc).isoformat().replace("+00:00", "Z") if v.tzinfo is None else v.isoformat().replace("+00:00", "Z")
+        }
