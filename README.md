@@ -14,67 +14,40 @@ Gym Manager permite a los administradores gestionar el calendario de clases, con
 
 ---
 
-## 3. Diagramas de Flujo de Uso
-
-### A. Aplicación Móvil (Flujo del Cliente)
-Este diagrama describe la experiencia del usuario desde el registro hasta la gestión de reservas, incluyendo la lógica de cancelación.
+## 3. Diagrama de Casos de Uso
+Este diagrama representa las interacciones de los diferentes actores (Cliente y Administrador) con las funcionalidades principales del sistema.
 
 ```mermaid
-flowchart TD
-    Start((Inicio)) --> Login{¿Tiene Cuenta?}
-    Login -- No --> Register[Registro con Bcrypt]
-    Login -- Sí --> Auth[Autenticación JWT]
-    
-    Register --> Auth
-    Auth --> Home[Dashboard: Actividades Disponibles]
-    
-    Home --> ViewDetails[Ver Detalles de Actividad]
-    ViewDetails --> Book{¿Reservar?}
-    
-    Book -- Sí --> CheckCap{¿Hay Aforo?}
-    CheckCap -- No --> Error[Notificación: Clase Llena]
-    CheckCap -- Sí --> Confirm[Reserva Confirmada]
-    
-    Home --> MyBookings[Mis Reservas]
-    MyBookings --> Cancel{¿Cancelar?}
-    
-    Cancel -- Sí --> Rule15{¿Faltan > 15 min?}
-    Rule15 -- Sí --> Refund[Estado: Cancelado / Plaza Liberada]
-    Rule15 -- No --> Penalty[Estado: Late Cancelled / Penalización]
-    
-    Refund --> MyBookings
-    Penalty --> MyBookings
-    Error --> Home
-```
+graph LR
+    subgraph "Actores"
+        C((Cliente))
+        A((Administrador))
+    end
 
-### B. Aplicación de Escritorio (Flujo del Administrador)
-Describe las tareas de gestión de clases y control de asistencia que realiza el personal del gimnasio.
+    subgraph "Gym Manager System"
+        UC1(Registrarse)
+        UC2(Autenticación JWT)
+        UC3(Consultar Clases)
+        UC4(Reservar Clase)
+        UC5(Gestionar Mis Reservas)
+        UC6(Cancelar Reserva)
+        
+        UC7(Gestión CRUD de Clases)
+        UC8(Gestión de Usuarios)
+        UC9(Control de Asistencia)
+    end
 
-```mermaid
-flowchart TD
-    Start((Inicio Admin)) --> LoginAdmin[Login Credenciales Admin]
-    LoginAdmin --> Dashboard[Panel de Control General]
+    C --- UC1
+    C --- UC2
+    C --- UC3
+    C --- UC4
+    C --- UC5
+    UC5 -. << incluye >> .-> UC6
     
-    Dashboard --> ManageAct[Gestión de Actividades]
-    ManageAct --> CreateAct[Crear Nueva Clase]
-    CreateAct --> ValData{Validar Datos}
-    ValData -- Error --> FixData[Corregir Fechas/Aforo]
-    ValData -- OK --> SaveDB[(Guardar en MongoDB)]
-    
-    Dashboard --> Attendance[Control de Asistencia]
-    Attendance --> SelectClass[Seleccionar Clase del día]
-    SelectClass --> ListUsers[Listado de Clientes Reservados]
-    
-    ListUsers --> Mark[Marcar Asistencia]
-    Mark --> Status{Estado}
-    Status --> Attended[Asistió]
-    Status --> Absent[No Asistió]
-    
-    Attended --> Sync[(Sincronizar DB)]
-    Absent --> Sync
-    
-    Dashboard --> UserMod[Gestión de Usuarios]
-    UserMod --> Search[Búsqueda / Reportes]
+    A --- UC2
+    A --- UC7
+    A --- UC8
+    A --- UC9
 ```
 
 ---
